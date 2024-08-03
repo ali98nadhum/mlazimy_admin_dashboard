@@ -1,0 +1,75 @@
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+.delete-btn{
+    color: red;
+    margin-right: 10px;
+}
+
+
+.update-btn{
+    color: rgb(10, 186, 10);
+}
+
+.table-box
+{
+    margin-left: 20px;
+    direction: rtl;
+}
+
+.table-row{
+    display: table;
+    width: 90%;
+    margin: 10px auto;
+    font-family: 'Almarai', sans-serif;
+    background: transparent;
+    padding: 12px 0;
+    color: #555;
+    box-shadow: 0 1px 4px 0px rgba(0,0,50,0.3);
+    direction: rtl;
+    font-size: 16px;
+}
+.table-head{
+    background: #eee;
+    box-shadow: none;
+    color: black;
+    font-weight: 600;
+    direction: rtl;
+}
+.table-head .table-cell{
+    border-right: none;
+    direction: rtl;
+}
+
+
+.table-cell{
+    display: table-cell;
+    width: 20%;
+    text-align: center;
+    padding: 4px 0;
+    border-right: 1px solid #d6d4d4;
+    vertical-align: middle;
+    direction: rtl;
+}
+.first-cell{
+    direction: rtl;
+}
+.last-cell{
+    border-right: none;
+    direction: rtl;
+}
+
+@media only screen and (max-width: 600px) {
+  .table-row {
+    font-size: 11px;
+  }
+  .table-box{
+    margin-left: 40px;
+  }
+}
+

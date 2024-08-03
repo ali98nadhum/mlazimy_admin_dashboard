@@ -1,0 +1,12 @@
+body{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Almarai', sans-serif;
+}
+
+
+.Toastify__toast-body {
+  font-family: 'Almarai', sans-serif;
+  font-size: 18px;
+}

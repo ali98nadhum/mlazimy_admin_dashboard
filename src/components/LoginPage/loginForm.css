@@ -1,0 +1,31 @@
+
+
+.MuiInputLabel-root{
+    color: black !important;
+  }
+  
+  
+  .Mui-error .MuiOutlinedInput-notchedOutline {
+    border: 2px solid #eee !important;
+    border-radius: 8px;
+  }
+  
+  .MuiFormHelperText-root{
+    font-size: 16px !important;
+    font-family: 'Almarai', sans-serif !important;
+    color: red!;
+    font-weight: 600 !important;
+    margin-top: 10px !important;
+  }
+  
+  
+  .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo img{
+    width: 150px;
+    height: 150px;
+  }
