@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {useStore} from "../../store";
+import LoadingPage from '../LoadingPage/LoadingPage';
 
 
   const formatDateString = (dateString) => {
@@ -24,9 +25,10 @@ import {useStore} from "../../store";
 
 const SubcategoryPage = () => {
 
-const {subcategoryData , fetchSubcategory} = useStore((state) => ({
+const {subcategoryData , fetchSubcategory , isLoading } = useStore((state) => ({
   subcategoryData: state.subcategoryData,
-  fetchSubcategory: state.fetchSubcategory
+  fetchSubcategory: state.fetchSubcategory,
+  isLoading:state.isLoading
 }))
 
 
@@ -48,8 +50,10 @@ useEffect(() => {
           <p>الاجرائات</p>
         </div>
       </div>
-
-      {subcategoryData.map((subcategory) => (
+      {isLoading ? (
+        <LoadingPage/>
+      ) : 
+      subcategoryData.map((subcategory) => (
         <div className="table-row" key={subcategory._id}>
           <div className="table-cell first-cell">
             <p> {subcategory.title} </p>

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import {useStore} from "../../store";
+import LoadingPage from '../LoadingPage/LoadingPage';
 
 
   const formatDateString = (dateString) => {
@@ -22,9 +23,10 @@ import {useStore} from "../../store";
 
 const TrainingPage = () => {
 
-  const {workData , fetchWork} = useStore((state) => ({
+  const {workData , fetchWork , isLoading } = useStore((state) => ({
     workData: state.workData,
-    fetchWork: state.fetchWork
+    fetchWork: state.fetchWork,
+    isLoading :state.isLoading 
   }))
 
   useEffect(() => {
@@ -45,8 +47,10 @@ const TrainingPage = () => {
           <p>الاجرائات</p>
         </div>
       </div>
-
-      {workData.map((work) => (
+      {isLoading ? (
+        <LoadingPage/>
+      ) : 
+      workData.map((work) => (
         <div className="table-row" key={work._id}>
           <div className="table-cell first-cell">
             <p> {work.title} </p>

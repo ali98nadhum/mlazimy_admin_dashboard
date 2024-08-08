@@ -4,14 +4,20 @@ import { create } from "zustand";
 
 export const useStore = create((set) => ({
 
+
+   // Loading state
+   isLoading: false,
+   setIsLoading: (isLoading) => set({ isLoading }),
+
   // ================================ Category functions ==============================
 
   // Get all category
   categoryData: [],
   fetchCategory: async () => {
     try {
+      set({ isLoading: true });
       const response = await axios.get("https://mlazimy-api.vercel.app/category");
-      set({ categoryData: response.data.data });
+      set({ categoryData: response.data.data , isLoading: false });
     } catch (error) {
       console.error("Error fetching data", error);
     }
@@ -112,8 +118,9 @@ export const useStore = create((set) => ({
   subcategoryData: [],
   fetchSubcategory: async () => {
     try {
+      set({ isLoading: true });
       const response = await axios.get("https://mlazimy-api.vercel.app/subcategory");
-      set({ subcategoryData: response.data.data });
+      set({ subcategoryData: response.data.data , isLoading: false });
     } catch (error) {
       console.error("Error fetching data", error);
     }
@@ -218,8 +225,9 @@ deleteSubcategory: async (id) => {
   workData: [],
   fetchWork: async () => {
     try {
+      set({ isLoading: true });
       const response = await axios.get("https://mlazimy-api.vercel.app/work");
-      set({ workData: response.data.data });
+      set({ workData: response.data.data , isLoading:false });
     } catch (error) {
       console.error("Error fetching data", error);
     }
@@ -323,13 +331,14 @@ createWork: async (formData) => {
   notUserData: [],
   fetchUsersNotice: async () => {
     try {
-      const token = localStorage.getItem("token"); // افترض أن التوكن مخزن في localStorage
+      set({ isLoading: true });
+      const token = localStorage.getItem("token");
       const response = await axios.get("https://mlazimy-api.vercel.app/notice", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      set({ notUserData: response.data.data });
+      set({ notUserData: response.data.data , isLoading:false });
     } catch (error) {
       console.error("Error fetching data", error);
     }

@@ -5,6 +5,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import "./categoryPage.css";
 import { useStore } from "../../store";
 import { useEffect } from "react";
+import LoadingPage from "../LoadingPage/LoadingPage";
 
 
 const formatDateString = (dateString) => {
@@ -23,9 +24,10 @@ const formatDateString = (dateString) => {
 };
 
 const CategoryPage = () => {
-  const { categoryData, fetchCategory } = useStore((state) => ({
+  const { categoryData, fetchCategory , isLoading } = useStore((state) => ({
     categoryData: state.categoryData,
     fetchCategory: state.fetchCategory,
+    isLoading: state.isLoading
   }));
 
   useEffect(() => {
@@ -45,8 +47,10 @@ const CategoryPage = () => {
           <p>الاجرائات</p>
         </div>
       </div>
-
-      {categoryData.map((category) => (
+      {isLoading ? (
+        <LoadingPage/>
+      ) : 
+      categoryData.map((category) => (
         <div className="table-row"  key={category._id}>
           <div className="table-cell first-cell">
             <p> {category.title} </p>
@@ -67,6 +71,7 @@ const CategoryPage = () => {
           </div>
         </div>
       ))}
+      
     </div>
   );
 };
