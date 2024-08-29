@@ -1,41 +1,39 @@
-import React, { useEffect } from 'react'
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import {useStore} from "../../store";
-import LoadingPage from '../LoadingPage/LoadingPage';
+import { useStore } from "../../store";
+import LoadingPage from "../LoadingPage/LoadingPage";
+import NoDataPage from "../noDataPage/NoDataPage";
 
+const formatDateString = (dateString) => {
+  const date = new Date(dateString);
 
-  const formatDateString = (dateString) => {
-    const date = new Date(dateString);
-  
-    const options = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-    };
-  
-    // @ts-ignore
-    const formattedDate = date.toLocaleDateString("ar-EG", options);
-  
-    return formattedDate;
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
   };
 
-const TrainingPage = () => {
+  // @ts-ignore
+  const formattedDate = date.toLocaleDateString("ar-EG", options);
 
-  const {workData , fetchWork , isLoading } = useStore((state) => ({
+  return formattedDate;
+};
+
+const TrainingPage = () => {
+  const { workData, fetchWork, isLoading } = useStore((state) => ({
     workData: state.workData,
     fetchWork: state.fetchWork,
-    isLoading :state.isLoading 
-  }))
+    isLoading: state.isLoading,
+  }));
 
   useEffect(() => {
     fetchWork();
-  } , [fetchWork])
+  }, [fetchWork]);
 
-
-    return (
-      <div className="table-box">
+  return (
+    <div className="table-box">
       <div className="table-row table-head">
         <div className="table-cell first-cell">
           <p>عنوان التدريب</p>
@@ -48,32 +46,31 @@ const TrainingPage = () => {
         </div>
       </div>
       {isLoading ? (
-        <LoadingPage/>
-      ) : 
-      workData.map((work) => (
-        <div className="table-row" key={work._id}>
-          <div className="table-cell first-cell">
-            <p> {work.title} </p>
+        <LoadingPage />
+      ) : workData.length > 0 ? (
+        workData.map((work) => (
+          <div className="table-row" key={work._id}>
+            <div className="table-cell first-cell">
+              <p> {work.title} </p>
+            </div>
+            <div className="table-cell">
+              <p> {formatDateString(work.createdAt)} </p>
+            </div>
+            <div className="table-cell last-cell">
+              <Link to={`/update-training/${work._id}`} className="update-btn">
+                <EditIcon />
+              </Link>
+              <Link to={`/delete-training/${work._id}`} className="delete-btn">
+                <DeleteIcon />
+              </Link>
+            </div>
           </div>
-          <div className="table-cell">
-            <p> {formatDateString(work.createdAt)} </p>
-          </div>
-          <div className="table-cell last-cell">
-            <Link to={`/update-training/${work._id}`} className="update-btn">
-              <EditIcon />
-            </Link>
-            <Link
-              to={`/delete-training/${work._id}`}
-              className="delete-btn"
-            >
-              <DeleteIcon />
-            </Link>
-          </div>
-        </div>
-      ))}
+        ))
+      ) : (
+        <NoDataPage />
+      )}
     </div>
-      );
-}
+  );
+};
 
-export default TrainingPage
-
+export default TrainingPage;

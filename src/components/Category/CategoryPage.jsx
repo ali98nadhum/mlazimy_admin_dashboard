@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
@@ -6,7 +5,7 @@ import "./categoryPage.css";
 import { useStore } from "../../store";
 import { useEffect } from "react";
 import LoadingPage from "../LoadingPage/LoadingPage";
-
+import NoDataPage from "../noDataPage/NoDataPage";
 
 const formatDateString = (dateString) => {
   const date = new Date(dateString);
@@ -24,10 +23,10 @@ const formatDateString = (dateString) => {
 };
 
 const CategoryPage = () => {
-  const { categoryData, fetchCategory , isLoading } = useStore((state) => ({
+  const { categoryData, fetchCategory, isLoading } = useStore((state) => ({
     categoryData: state.categoryData,
     fetchCategory: state.fetchCategory,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
   }));
 
   useEffect(() => {
@@ -48,30 +47,35 @@ const CategoryPage = () => {
         </div>
       </div>
       {isLoading ? (
-        <LoadingPage/>
-      ) : 
-      categoryData.map((category) => (
-        <div className="table-row"  key={category._id}>
-          <div className="table-cell first-cell">
-            <p> {category.title} </p>
+        <LoadingPage />
+      ) : categoryData.length > 0 ? (
+        categoryData.map((category) => (
+          <div className="table-row" key={category._id}>
+            <div className="table-cell first-cell">
+              <p> {category.title} </p>
+            </div>
+            <div className="table-cell">
+              <p> {formatDateString(category.createdAt)} </p>
+            </div>
+            <div className="table-cell last-cell">
+              <Link
+                to={`/update-category/${category._id}`}
+                className="update-btn"
+              >
+                <EditIcon />
+              </Link>
+              <Link
+                to={`/delete-category/${category._id}`}
+                className="delete-btn"
+              >
+                <DeleteIcon />
+              </Link>
+            </div>
           </div>
-          <div className="table-cell">
-            <p> {formatDateString(category.createdAt)} </p>
-          </div>
-          <div className="table-cell last-cell">
-            <Link to={`/update-category/${category._id}`} className="update-btn" >
-              <EditIcon />
-            </Link>
-            <Link
-              to={`/delete-category/${category._id}`}
-              className="delete-btn"
-            >
-              <DeleteIcon />
-            </Link>
-          </div>
-        </div>
-      ))}
-      
+        ))
+      ) : (
+        <NoDataPage />
+      )}
     </div>
   );
 };
