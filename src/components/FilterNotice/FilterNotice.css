@@ -1,0 +1,51 @@
+.filter-notice {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 10px;
+}
+
+.filter-notice button {
+    gap: 20px;
+    font-family: 'Almarai', sans-serif;
+}
+
+@media (max-width:850px) {
+    .filter-notice {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .filter-notice button {
+        flex: 1 1 calc(50% - 20px);
+        max-width: 150px;
+        min-width: 100px;
+        margin: 5px;
+        text-align: center;
+        margin: 5px 0;
+    }
+}
+
+
+@media (max-width:450px) {
+    .filter-notice {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .filter-notice button {
+        flex: 1 1 calc(50% - 20px);
+        max-width: 150px;
+        min-width: 100px;
+        margin: 5px;
+        text-align: center;
+        margin: 5px 0;
+    }
+}

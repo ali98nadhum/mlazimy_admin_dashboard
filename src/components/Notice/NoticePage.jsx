@@ -1,27 +1,31 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useStore } from "../../store";
 import LoadingPage from "../LoadingPage/LoadingPage";
+import FilterNotice from "../FilterNotice/FilterNotice";
+
 
 const theme = createTheme({
   direction: "rtl",
 });
 
 const NoticePage = () => {
-  const { notUserData, fetchUsersNotice, isLoading } = useStore((state) => ({
+  const { notUserData, fetchUsersNotice, isLoading , SelectedClass } = useStore((state) => ({
     notUserData: state.notUserData,
     fetchUsersNotice: state.fetchUsersNotice,
     isLoading: state.isLoading,
+    SelectedClass:state.SelectedClass
   }));
 
   useEffect(() => {
     fetchUsersNotice();
-  }, [fetchUsersNotice]);
+  }, [fetchUsersNotice , SelectedClass]);
 
   return (
     <div className="table-box">
+      <FilterNotice/>
       <div className="table-row table-head">
         <div className="table-cell first-cell">
           <p>اسم الطالب</p>

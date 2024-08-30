@@ -2,7 +2,7 @@ import axios from "axios";
 import { create } from "zustand";
 
 
-export const useStore = create((set) => ({
+export const useStore = create((set , get) => ({
 
 
    // Loading state
@@ -329,15 +329,16 @@ createWork: async (formData) => {
   // ======================================= Notice Functions =======================================
   // Get All Notice
   notUserData: [],
-  fetchUsersNotice: async () => {
+  fetchUsersNotice: async (val = "") => {
     try {
       set({ isLoading: true });
       const token = localStorage.getItem("token");
-      const response = await axios.get("https://mlazimy-api.vercel.app/notice", {
+      const response = await axios.get(`https://mlazimy-api.vercel.app/notice?class=${val}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      
       set({ notUserData: response.data.data , isLoading:false });
     } catch (error) {
       console.error("Error fetching data", error);
