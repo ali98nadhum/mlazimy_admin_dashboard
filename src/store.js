@@ -116,11 +116,13 @@ export const useStore = create((set , get) => ({
 
   // Get All Subcategory
   subcategoryData: [],
-  fetchSubcategory: async () => {
+  currentPage: 1,
+  totalCount: 0,
+  fetchSubcategory: async (page) => {
     try {
-      set({ isLoading: true });
-      const response = await axios.get("https://mlazimy-api.vercel.app/subcategory");
-      set({ subcategoryData: response.data.data , isLoading: false });
+      set({ isLoading: true , currentPage: page });
+      const response = await axios.get(`https://mlazimy-api.vercel.app/subcategory?page=${page}`);
+      set({ subcategoryData: response.data.data ,totalCount:response.data.results ,isLoading: false });
     } catch (error) {
       console.error("Error fetching data", error);
     }

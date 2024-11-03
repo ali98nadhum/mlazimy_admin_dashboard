@@ -6,6 +6,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import { useStore } from "../../store";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import NoDataPage from "../noDataPage/NoDataPage";
+import Pagination from "@mui/material/Pagination";
 
 const formatDateString = (dateString) => {
   const date = new Date(dateString);
@@ -23,17 +24,28 @@ const formatDateString = (dateString) => {
 };
 
 const SubcategoryPage = () => {
-  const { subcategoryData, fetchSubcategory, isLoading } = useStore(
+  const { subcategoryData, fetchSubcategory, isLoading , currentPage , totalCount } = useStore(
     (state) => ({
       subcategoryData: state.subcategoryData,
       fetchSubcategory: state.fetchSubcategory,
       isLoading: state.isLoading,
+      currentPage: state.currentPage,
+      totalCount: state.totalCount,
     })
   );
 
+  console.log(totalCount);
+  
+  
+
   useEffect(() => {
-    fetchSubcategory();
-  }, [fetchSubcategory]);
+    fetchSubcategory(currentPage);
+  }, [fetchSubcategory , currentPage]);
+
+
+  const handlePageChange = (event, value) => {
+    fetchSubcategory(value, currentPage);
+  };
 
   return (
     <div className="table-box">
@@ -78,6 +90,14 @@ const SubcategoryPage = () => {
       ) : (
         <NoDataPage />
       )}
+       {/* Pagination */}
+       <Pagination
+          className="Pagination"
+          count={Math.ceil(totalCount / 6)}
+          color="primary"
+          page={currentPage}
+          onChange={handlePageChange}
+        />
     </div>
   );
 };
