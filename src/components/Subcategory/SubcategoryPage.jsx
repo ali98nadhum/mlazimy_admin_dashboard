@@ -7,6 +7,7 @@ import { useStore } from "../../store";
 import LoadingPage from "../LoadingPage/LoadingPage";
 import NoDataPage from "../noDataPage/NoDataPage";
 import Pagination from "@mui/material/Pagination";
+import { Container } from "@mui/material";
 
 const formatDateString = (dateString) => {
   const date = new Date(dateString);
@@ -91,13 +92,17 @@ const SubcategoryPage = () => {
         <NoDataPage />
       )}
        {/* Pagination */}
-       <Pagination
+      <Container>
+        <div className="subcategoryPag">
+        <Pagination
           className="Pagination"
           count={Math.ceil(totalCount / 6)}
           color="primary"
           page={currentPage}
           onChange={handlePageChange}
         />
+        </div>
+      </Container>
     </div>
   );
 };
